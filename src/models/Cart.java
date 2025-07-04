@@ -11,6 +11,7 @@ public class Cart {
         }
         items.add(new CartItem(product, qty));
     }
+
     private double calculateSubtotal() {
         double subtotal = 0;
         for (CartItem item : items) {
@@ -28,5 +29,20 @@ public class Cart {
             }
         }
         return shippingFee;
+    }
+
+    private boolean hasExpiredProduct() {
+        for (CartItem item : items) {
+            if (item.getProduct().isExpired()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void reduceStock() {
+        for (CartItem item : items) {
+            item.getProduct().decreaseQuantity(item.getQuantity());
+        }
     }
 }
