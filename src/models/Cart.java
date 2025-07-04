@@ -74,4 +74,15 @@ public class Cart {
 
         System.out.println("Total package weight " + (totalWeight / 1000) + "kg\n");
     }
+
+    private void printReceipt(double subtotal, double shipping, double total, double remainingBalance) {
+        System.out.println("** Checkout receipt **");
+        for (CartItem item : items) {
+            System.out.println(item.getQuantity() + "x " + item.getProduct().getName() + "\t" + (item.getQuantity() * item.getProduct().getPrice()));
+        }
+        System.out.println("----------------------");
+        System.out.println("Subtotal\t\t" + subtotal);
+        System.out.println("Shipping\t\t" + shipping);
+        System.out.println("Amount\t\t" + total);
+    }
 }
