@@ -27,10 +27,19 @@ public class Product {
         this.shippable = shippable;
         this.expirable = expirable;
     }
+    public boolean isExpired() {
+        return expirable != null && expirable.isExpired();
+    }
+
+    public boolean isShippable() {
+        return shippable != null;
+    }
     void decreaseQuantity(int amount) {
         quantity -= amount;
     }
     public String getName() { return name; }
     public double getPrice() { return price; }
     public int getQuantity() { return quantity; }
+    public Shippable getShippable() { return shippable; }
+    public Shippable getExpirable() { return expirable; }
 }
