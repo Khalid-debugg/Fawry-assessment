@@ -11,4 +11,22 @@ public class Cart {
         }
         items.add(new CartItem(product, qty));
     }
+    private double calculateSubtotal() {
+        double subtotal = 0;
+        for (CartItem item : items) {
+            subtotal += item.getProduct().getPrice() * item.getQuantity();
+        }
+        return subtotal;
+    }
+
+    private double calculateShippingFee() {
+        double shippingFee = 0;
+        double feePerItem = 10;
+        for (CartItem item : items) {
+            if (item.getProduct().isShippable()) {
+                shippingFee += feePerItem * item.getQuantity();
+            }
+        }
+        return shippingFee;
+    }
 }
