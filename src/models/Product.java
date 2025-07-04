@@ -41,5 +41,5 @@ public class Product {
     public double getPrice() { return price; }
     public int getQuantity() { return quantity; }
     public Shippable getShippable() { return shippable; }
-    public Shippable getExpirable() { return expirable; }
+    public Expirable getExpirable() { return expirable; }
 }
