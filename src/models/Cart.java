@@ -12,6 +12,32 @@ public class Cart {
         items.add(new CartItem(product, qty));
     }
 
+    public void checkout(Customer customer) {
+        if (items.isEmpty()) {
+            System.out.println("Cart is empty");
+            return;
+        }
+
+        double subtotal = calculateSubtotal();
+        double shippingFee = calculateShippingFee();
+        double total = subtotal + shippingFee;
+
+        if (customer.getBalance() < total) {
+            System.out.println("Customer has not enough money");
+            return;
+        }
+
+        if (hasExpiredProduct()) {
+            System.out.println("One or more products in the cart are expired");
+            return;
+        }
+
+        customer.pay(total);
+        reduceStock();
+        printShipmentDetails();
+        printReceipt(subtotal, shippingFee, total, customer.getBalance());
+    }
+
     private double calculateSubtotal() {
         double subtotal = 0;
         for (CartItem item : items) {
