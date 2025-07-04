@@ -1,8 +1,8 @@
 package models;
 
 public class Product {
-    String name;
-    double price;
+    private final String name;
+    private final double price;
     int quantity;
     Product(String name, double price, int quantity) {
         this.name = name;
@@ -12,4 +12,7 @@ public class Product {
     void decreaseQuantity(int amount) {
         quantity -= amount;
     }
+    public String getName() { return name; }
+    public double getPrice() { return price; }
+    public int getQuantity() { return quantity; }
 }
