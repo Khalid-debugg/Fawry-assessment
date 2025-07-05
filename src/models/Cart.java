@@ -1,21 +1,20 @@
 package models;
 import java.util.*;
 import behaviors.*;
+import models.errors.CashoutException;
 public class Cart {
     private final List<CartItem> items = new ArrayList<>();
 
     public void add(Product product, int qty) {
         if (qty > product.getQuantity()) {
-            System.out.println("Not enough stock for " + product.getName());
-            return;
+            throw new CashoutException("Not enough stock for " + product.getName());
         }
         items.add(new CartItem(product, qty));
     }
 
     public void checkout(Customer customer) {
         if (items.isEmpty()) {
-            System.out.println("Cart is empty");
-            return;
+            throw new CashoutException("Cart is empty");
         }
 
         double subtotal = calculateSubtotal();
@@ -23,13 +22,11 @@ public class Cart {
         double total = subtotal + shippingFee;
 
         if (customer.getBalance() < total) {
-            System.out.println("Customer has not enough money");
-            return;
+            throw new CashoutException("Customer has not enough money");
         }
 
         if (hasExpiredProduct()) {
-            System.out.println("One or more products in the cart are expired");
-            return;
+            throw new CashoutException("One or more products in the cart are expired");
         }
 
         customer.pay(total);
